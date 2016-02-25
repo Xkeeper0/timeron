@@ -17,7 +17,7 @@
 		love.graphics.setDefaultFilter("nearest", "nearest", 1)
 
 		fonts		= {
-			bignumbers	= love.graphics.newImageFont("numberfont-2x.png", "0123456789 .x"),
+			bignumbers	= love.graphics.newImageFont("numberfont-2x.png", "0123456789 .x-:"),
 			helptext	= love.graphics.newFont(12)
 			}
 
@@ -86,7 +86,7 @@
 		local displayM	= math.floor(displayTimer / 60)
 		local displayS	= displayTimer % 60
 
-		love.graphics.print(string.format("%02d %02d", displayM, displayS), textX, textY, 0, scale, scale)
+		love.graphics.print(string.format("%02d:%02d", displayM, displayS), textX, textY, 0, scale, scale)
 		displayHelpText(defualtHelpText .. "space: start/stop - enter: change setting")
 
 	end
@@ -113,10 +113,14 @@
 		love.graphics.setBackgroundColor(50, 70, 50)
 		love.graphics.setColor(255, 255, 255)
 
-		local disp1	= math.min(99, math.floor(setTimeDisplay / 100))
-		local disp2	= setTimeDisplay % 100
+		local disp	= string.gsub(string.format("%4d", setTimeDisplay), " ", "-")
+		if setTimeDisplay == 0 then
+			disp	= "----"
+		end
+		local disp1	= disp:sub(1, 2)
+		local disp2	= disp:sub(3, 4)
 
-		love.graphics.print(string.format("%02d %02d", disp1, disp2), textX, textY, 0, scale, scale)
+		love.graphics.print(string.format("%2s:%2s", disp1, disp2), textX, textY, 0, scale, scale)
 
 		displayHelpText(defualtHelpText .. "enter: save - 0-9, backspace: change time setting")
 
@@ -201,7 +205,7 @@
 	function rescaleFont(w, h)
 		-- Get font required width/height
 		local font			= love.graphics.getFont()
-		local fontWidth		= font:getWidth("00000");
+		local fontWidth		= font:getWidth("00:00");
 		local fontHeight	= font:getHeight();
 
 		-- Available size for font
