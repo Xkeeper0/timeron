@@ -92,7 +92,7 @@
 	end
 
 	modes.timer.keypressed	= function (key, rpt)
-		if key == " " then
+		if key == "space" then
 			targetTime		= globalTime + setTime
 			timerActive		= not timerActive
 			beep	= 1
