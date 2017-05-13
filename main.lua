@@ -4,9 +4,11 @@
 	globalTime		= 0
 	textX			= 0
 	textY			= 0
-	setTime			= 60
+	setTime			= 0
 	setTimeDisplay	= 0
-	padding			= 20
+	padding			= 5
+	garbageRate		= 70
+	garbageRateM	= 70
 	timerActive		= false
 	oldWindow		= {}
 
@@ -31,11 +33,24 @@
 
 		beep	= 99
 		beeps	= {
-			{ time = -9999, sound = low },
-			{ time =     0, sound = high },
+			--{ time =     0, sound = low },
+			{ time =    96, sound = low },
+			{ time =   112, sound = low },
+			{ time =   128, sound = low },
+			{ time =   144, sound = low },
+			{ time =   160, sound = low },
+			{ time =   176, sound = low },
+			{ time =   192, sound = low },
+			{ time =   208, sound = low },
+			{ time =   224, sound = low },
+			{ time =   240, sound = low },
+			{ time =   256, sound = low },
+			{ time =   272, sound = low },
+			{ time =   288, sound = low },
+			{ time =   304, sound = low },
 		}
 
-		currentMode	= modes.set
+		currentMode	= modes.timer
 
 	end
 
@@ -56,7 +71,7 @@
 		local localTimer	= globalTime - targetTime
 
 
-		local displayTimer	= math.min(100 * 60 - 1, math.floor(math.abs(localTimer)))
+		local displayTimer	= localTimer -- math.min(100 * 60 - 1, math.floor(math.abs(localTimer)))
 
 		if not timerActive then
 			localTimer		= 100 * 60 - 1
@@ -65,15 +80,17 @@
 		end
 
 		if beeps[beep] and beeps[beep].time < localTimer then
-			beeps[beep].sound:play()
 			beep = beep + 1
+			beeps[beep].sound:setPitch(1 + (beep / 4))
+			beeps[beep].sound:play()
+			garbageRateM	= math.floor(garbageRateM * 3/4)
 		end
 
 		if not timerActive then
 			love.graphics.setBackgroundColor(40, 40, 40)
 			love.graphics.setColor(180, 180, 180)
 		
-		elseif localTimer < 0 then
+		elseif localTimer < 96 then
 			love.graphics.setBackgroundColor(30, 30, 70)
 			love.graphics.setColor(255, 255, 255)
 
@@ -83,11 +100,14 @@
 
 		end
 
-		local displayM	= math.floor(displayTimer / 60)
-		local displayS	= displayTimer % 60
+		--local displayM	= math.floor(displayTimer / 60)
+		--local displayS	= displayTimer % 60
 
-		love.graphics.print(string.format("%02d:%02d", displayM, displayS), textX, textY, 0, scale, scale)
-		displayHelpText(defualtHelpText .. "space: start/stop - enter: change setting")
+		local displayS	= math.floor(displayTimer)
+		local displayMS	= math.floor((displayTimer - math.floor(displayTimer)) * 100)
+
+		love.graphics.print(string.format("%03d:%02d", displayS, displayMS), textX, textY, 0, scale, scale)
+		displayHelpText(string.format("%.2fx", (garbageRate / garbageRateM)))
 
 	end
 
@@ -95,7 +115,8 @@
 		if key == "space" then
 			targetTime		= globalTime + setTime
 			timerActive		= not timerActive
-			beep	= 1
+			beep			= 1
+			garbageRateM	= garbageRate
 			return
 
 		elseif key == "return" then
@@ -205,7 +226,7 @@
 	function rescaleFont(w, h)
 		-- Get font required width/height
 		local font			= love.graphics.getFont()
-		local fontWidth		= font:getWidth("00:00");
+		local fontWidth		= font:getWidth("000:00");
 		local fontHeight	= font:getHeight();
 
 		-- Available size for font
