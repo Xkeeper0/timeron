@@ -54,8 +54,9 @@
 	modes.timer	= {}
 	modes.timer.draw	= function()
 
-		love.graphics.setBackgroundColor(30, 30, 70)
-		love.graphics.setColor(255, 255, 255)
+
+			love.graphics.setBackgroundColor(30 / 255, 30 / 255, 70 / 255)
+			love.graphics.setColor(255 / 255, 255 / 255, 255 / 255)
 
 		local currentTime	= os.date("*t")
 

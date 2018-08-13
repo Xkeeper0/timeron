@@ -2,7 +2,7 @@
 function love.conf(t)
 
 	t.window.title		= "Timeron"
-	t.version			= "0.9.0"
+	t.version			= "11.1"
 	t.console			= false
 	t.window.width		= 800
 	t.window.height		= 300
