@@ -70,16 +70,16 @@
 		end
 
 		if not timerActive then
-			love.graphics.setBackgroundColor(40, 40, 40)
-			love.graphics.setColor(180, 180, 180)
+			love.graphics.setBackgroundColor(40 / 255, 40 / 255, 40 / 255)
+			love.graphics.setColor(180 / 255, 180 / 255, 180 / 255)
 		
 		elseif localTimer < 0 then
-			love.graphics.setBackgroundColor(30, 30, 70)
-			love.graphics.setColor(255, 255, 255)
+			love.graphics.setBackgroundColor(30 / 255, 30 / 255, 70 / 255)
+			love.graphics.setColor(255 / 255, 255 / 255, 255 / 255)
 
 		else
-			love.graphics.setBackgroundColor(50, 10, 10)
-			love.graphics.setColor(255, 120, 120)
+			love.graphics.setBackgroundColor(50 / 255, 10 / 255, 10 / 255)
+			love.graphics.setColor(255 / 255, 120 / 255, 120 / 255)
 
 		end
 
@@ -110,8 +110,8 @@
 	modes.set	= {}
 	modes.set.draw	= function()
 
-		love.graphics.setBackgroundColor(50, 70, 50)
-		love.graphics.setColor(255, 255, 255)
+		love.graphics.setBackgroundColor(50 / 255, 70 / 255, 50 / 255)
+		love.graphics.setColor(255 / 255, 255 / 255, 255 / 255)
 
 		local disp	= string.gsub(string.format("%4d", setTimeDisplay), " ", "-")
 		if setTimeDisplay == 0 then

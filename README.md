@@ -14,7 +14,7 @@ helpfully beeps when timer starts and when timer reaches 0:00
 
 
 
-written in lua using [love2d](https://love2d.org) 0.9.X. may work in newer versions
+written in lua using [love2d](https://love2d.org), last tested in version 11.1. may not work in newer versions.
 
 
 inputting time
